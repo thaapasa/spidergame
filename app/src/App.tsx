@@ -12,7 +12,7 @@ export default class App extends Component<{}> {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>jAlkaMetri</Text>
+        <Text style={styles.welcome}>Täditikki Tedi</Text>
         <Text style={styles.instructions}>{instructions}</Text>
       </View>
     );
