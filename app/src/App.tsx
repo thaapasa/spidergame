@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
+import Video from 'react-native-video';
 
 export default class App extends Component<{}> {
   render() {
@@ -10,6 +11,7 @@ export default class App extends Component<{}> {
           resizeMode="contain"
           style={styles.image}
         />
+        <Video source={{ uri: 'birds' }} repeat={true} />
       </View>
     );
   }
