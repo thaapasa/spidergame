@@ -11,7 +11,12 @@ export default class App extends Component<{}> {
           resizeMode="contain"
           style={styles.image}
         />
-        <Video source={{ uri: 'birds' }} repeat={true} />
+        <Video
+          source={{ uri: 'birds' }}
+          repeat={true}
+          style={styles.video}
+          paused={false}
+        />
       </View>
     );
   }
@@ -32,5 +37,9 @@ const styles = StyleSheet.create({
     padding: 0,
     margin: 0,
     backgroundColor: 'black',
+  },
+  video: {
+    height: 0,
+    width: 0,
   },
 });
