@@ -4,15 +4,22 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "reset-cache": "node node_modules/react-native/local-cli/cli.js start --reset-cache",
+    "log-android": "adb logcat --clear && adb logcat >android.log",
+    "test": "jest",
+    "clean-ts": "watchman watch-del-all",
+    "clean-build": "rm -rf android/build android/app/build",
+    "clean": "yarn clean-ts && yarn clean-build"
   },
   "dependencies": {
     "react": "16.6.3",
-    "react-native": "0.57.8"
+    "react-native": "0.57.8",
+    "react-native-video": "4.3.0"
   },
   "devDependencies": {
     "@types/react": "16.7.18",
     "@types/react-native": "0.57.23",
+    "@types/react-native-video": "3.1.0",
     "babel-jest": "23.6.0",
     "jest": "23.6.0",
     "metro-react-native-babel-preset": "0.51.1",

@@ -27,6 +27,7 @@ yarn-error.log
 buck-out/
 \.buckd/
 *.keystore
+*.log
 
 */fastlane/report.xml
 */fastlane/Preview.html
