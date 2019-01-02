@@ -4,8 +4,12 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
+    "reset-cache": "node node_modules/react-native/local-cli/cli.js start --reset-cache",
     "log-android": "adb logcat --clear && adb logcat >android.log",
-    "test": "jest"
+    "test": "jest",
+    "clean-ts": "watchman watch-del-all",
+    "clean-build": "rm -rf android/build android/app/build",
+    "clean": "yarn clean-ts && yarn clean-build"
   },
   "dependencies": {
     "react": "16.6.3",
