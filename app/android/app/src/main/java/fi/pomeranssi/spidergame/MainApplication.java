@@ -1,4 +1,4 @@
-package com.spidergame;
+package fi.pomeranssi.spidergame;
 
 import android.app.Application;
 
