@@ -1,3 +1,4 @@
 google-api.json
 *keystore.jks
 app/release/
+keystore.properties
