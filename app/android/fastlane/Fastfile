@@ -13,6 +13,8 @@
 # Uncomment the line if you want fastlane to automatically update itself
 # update_fastlane
 
+fastlane_require 'fastlane-plugin-increment_version_code'
+
 default_platform(:android)
 
 platform :android do
@@ -24,6 +26,13 @@ platform :android do
   desc "Build release version"
   lane :build do
     gradle(task: "clean assembleRelease")
+  end
+
+  desc "Increment version code"
+  lane :version do
+    increment_version_code(
+      gradle_file_path: "./app/build.gradle"
+    )
   end
 
   desc "Deploy a new version to the Google Play"
