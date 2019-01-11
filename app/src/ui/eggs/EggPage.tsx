@@ -1,15 +1,9 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import { Colors } from '../Styles';
+import { Egg, eggCollection } from './Egg';
 import { LockedEgg, OpenEgg } from './Eggs';
-
-interface Egg {
-  locked: boolean;
-}
-
-const eggCollection = Array.apply(null, Array(16)).map(() => ({
-  locked: true,
-}));
-eggCollection[0].locked = false;
+import { SpiderTedi } from './EggSpiders';
 
 export default class EggPage extends React.Component<{}> {
   eggs: Egg[] = eggCollection;
@@ -31,12 +25,26 @@ export default class EggPage extends React.Component<{}> {
 const EggRow = ({ eggs }: { eggs: Egg[] }) => (
   <View style={styles.eggRow}>
     {eggs.map((egg, i) => (
-      <Egg {...egg} key={i} />
+      <EggView {...egg} key={i} />
     ))}
   </View>
 );
 
-const Egg = (egg: Egg) => (egg.locked ? <LockedEgg /> : <OpenEgg />);
+const EggView = (egg: Egg) => (
+  <View style={styles.eggContainer}>
+    {egg.locked ? (
+      <LockedEgg />
+    ) : (
+      <>
+        <OpenEgg />
+        <View style={styles.eggContents}>
+          <Text style={styles.spiderName}>Tedi</Text>
+          <SpiderTedi />
+        </View>
+      </>
+    )}
+  </View>
+);
 
 const styles = StyleSheet.create({
   container: {
@@ -51,5 +59,23 @@ const styles = StyleSheet.create({
   eggRow: {
     flexDirection: 'row',
     margin: 8,
+  },
+  eggContainer: {
+    width: 66,
+    height: 90,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  eggContents: {
+    position: 'absolute',
+    width: 66,
+    height: 90,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  spiderName: {
+    color: Colors.black,
+    marginBottom: 2,
   },
 });
