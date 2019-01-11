@@ -1,11 +1,14 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { NavigationScreenProps } from 'react-navigation';
 import { Colors } from '../Styles';
 import { Egg, eggCollection } from './Egg';
 import { LockedEgg, OpenEgg } from './Eggs';
 import { SpiderTedi } from './EggSpiders';
 
-export default class EggPage extends React.Component<{}> {
+export default class EggPage extends React.Component<
+  NavigationScreenProps<any>
+> {
   eggs: Egg[] = eggCollection;
   render() {
     return <View style={styles.container}>{this.renderEggs()}</View>;
@@ -13,38 +16,58 @@ export default class EggPage extends React.Component<{}> {
   renderEggs() {
     const eggRow1 = this.eggs.slice(0, 8);
     const eggRow2 = this.eggs.slice(8);
+    const navigate = this.props.navigation.navigate.bind(this.props.navigation);
     return (
       <>
-        <EggRow eggs={eggRow1} />
-        <EggRow eggs={eggRow2} />
+        <EggRow eggs={eggRow1} navigate={navigate} />
+        <EggRow eggs={eggRow2} navigate={navigate} />
       </>
     );
   }
 }
 
-const EggRow = ({ eggs }: { eggs: Egg[] }) => (
+const EggRow = ({
+  eggs,
+  navigate,
+}: {
+  eggs: Egg[];
+  navigate: (routeName: string) => void;
+}) => (
   <View style={styles.eggRow}>
     {eggs.map((egg, i) => (
-      <EggView {...egg} key={i} />
+      <EggView {...egg} key={i} navigate={navigate} />
     ))}
   </View>
 );
 
-const EggView = (egg: Egg) => (
-  <View style={styles.eggContainer}>
-    {egg.locked ? (
-      <LockedEgg />
-    ) : (
-      <>
-        <OpenEgg />
-        <View style={styles.eggContents}>
-          <Text style={styles.spiderName}>Tedi</Text>
-          <SpiderTedi />
+class EggView extends React.Component<
+  Egg & { navigate: (routeName: string) => void }
+> {
+  render() {
+    return (
+      <TouchableOpacity onPress={this.onClick}>
+        <View style={styles.eggContainer}>
+          {this.props.locked ? (
+            <LockedEgg />
+          ) : (
+            <>
+              <OpenEgg />
+              <View style={styles.eggContents}>
+                <Text style={styles.spiderName}>Tedi</Text>
+                <SpiderTedi />
+              </View>
+            </>
+          )}
         </View>
-      </>
-    )}
-  </View>
-);
+      </TouchableOpacity>
+    );
+  }
+  onClick = () => {
+    if (this.props.routeName) {
+      this.props.navigate(this.props.routeName);
+    }
+  };
+}
 
 const styles = StyleSheet.create({
   container: {

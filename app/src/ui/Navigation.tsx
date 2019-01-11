@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { createAppContainer, createStackNavigator } from 'react-navigation';
 import EggPage from './eggs/EggPage';
-import IntroPage from './intro/IntroPage';
+import FindTediGame from './intro/games/findTedi/FindTediGame';
 
 const styles = StyleSheet.create({
   cardStyle: {
@@ -11,15 +11,15 @@ const styles = StyleSheet.create({
 
 export const AppNavigator = createStackNavigator(
   {
-    Intro: {
-      screen: IntroPage,
-    },
     EggCollection: {
       screen: EggPage,
     },
+    FindTediGame: {
+      screen: FindTediGame,
+    },
   },
   {
-    initialRouteName: 'Intro',
+    initialRouteName: 'EggCollection',
     cardStyle: styles.cardStyle,
     headerMode: 'none',
   }

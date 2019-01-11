@@ -1,12 +1,11 @@
 import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import Video from 'react-native-video';
-import { NavigationContainerProps } from 'react-navigation';
 import Button from '../elements/Button';
 
-export default class IntroPage extends React.Component<
-  NavigationContainerProps
-> {
+export default class IntroPage extends React.Component<{
+  onStart: () => void;
+}> {
   render() {
     return (
       <View style={styles.container}>
@@ -22,17 +21,11 @@ export default class IntroPage extends React.Component<
           paused={false}
         />
         <View style={styles.overlay}>
-          <Button text="Aloita" onPress={this.onStart} />
+          <Button text="Aloita" onPress={this.props.onStart} />
         </View>
       </View>
     );
   }
-  onStart = () => {
-    if (!this.props.navigation) {
-      return;
-    }
-    this.props.navigation.navigate('EggCollection');
-  };
 }
 
 const styles = StyleSheet.create({
