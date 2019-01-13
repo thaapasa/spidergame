@@ -1,9 +1,9 @@
 import React from 'react';
 import Svg, { Circle, Ellipse, G, Path } from 'react-native-svg';
 import { Colors } from '../Styles';
-import { ClosedHappyEyes, OpenEyes } from './Eyes';
+import { ClosedHappyEyes, ClosedHappyEyesWithLashes, OpenEyes } from './Eyes';
 
-type EyeType = 'open' | 'closed-happy';
+type EyeType = 'open' | 'closed-happy' | 'closed-lashes';
 
 export interface SpiderProps {
   headColor: string;
@@ -73,7 +73,6 @@ export class Spider extends React.Component<SpiderProps> {
             fill={this.props.headColor}
             stroke={Colors.black}
           />
-
           {this.renderEyes()}
           <Path
             d="M25.5 50c1.639 0 3.476-1.493 3.476-3.019v-.393c0-.601-2.44-.076-3.476-.076s-3.548-.354-3.548 0c0 .353-.004.287 0 .364C22.04 48.856 24.255 50 25.5 50z"
@@ -111,6 +110,8 @@ export class Spider extends React.Component<SpiderProps> {
         return <OpenEyes />;
       case 'closed-happy':
         return <ClosedHappyEyes />;
+      case 'closed-lashes':
+        return <ClosedHappyEyesWithLashes />;
     }
     return null;
   }
