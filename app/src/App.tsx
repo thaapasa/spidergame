@@ -1,18 +1,20 @@
+import { observable } from 'mobx';
+import { observer } from 'mobx-react';
 import React, { Component } from 'react';
 import IntroPage from './ui/intro/IntroPage';
 import { AppContainer } from './ui/Navigation';
 
-interface AppState {
-  initialized: boolean;
-}
-export default class App extends Component<{}, AppState> {
-  state: AppState = { initialized: false };
+@observer
+export default class App extends Component<{}> {
+  @observable
+  private started = false;
+
   render() {
-    return !this.state.initialized ? (
+    return !this.started ? (
       <IntroPage onStart={this.onStart} />
     ) : (
       <AppContainer />
     );
   }
-  onStart = () => this.setState({ initialized: true });
+  onStart = () => (this.started = true);
 }
