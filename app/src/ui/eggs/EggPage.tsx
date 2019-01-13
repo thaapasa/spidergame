@@ -2,9 +2,9 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { NavigationScreenProps } from 'react-navigation';
 import { SText } from '../elements/SText';
+import { SpiderTedi } from '../spider/Spider';
 import { Egg, eggCollection } from './Egg';
 import { LockedEgg, OpenEgg } from './Eggs';
-import { SpiderTedi } from './EggSpiders';
 
 export default class EggPage extends React.Component<
   NavigationScreenProps<any>
