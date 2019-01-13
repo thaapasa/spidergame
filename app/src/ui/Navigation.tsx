@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { createAppContainer, createStackNavigator } from 'react-navigation';
 import EggPage from './eggs/EggPage';
-import FindTediGame from './intro/games/findTedi/FindTediGame';
+import FindTediGame from './games/findTedi/FindTediGame';
 
 const styles = StyleSheet.create({
   cardStyle: {

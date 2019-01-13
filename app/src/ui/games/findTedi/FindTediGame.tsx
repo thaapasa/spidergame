@@ -1,11 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { SText } from '../../elements/SText';
 
 export default class FindTediGame extends React.Component<{}> {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Kuka on Tedi?</Text>
+        <SText>Kuka on Tedi?</SText>
       </View>
     );
   }

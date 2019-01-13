@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { NavigationScreenProps } from 'react-navigation';
-import { Colors } from '../Styles';
+import { SText } from '../elements/SText';
 import { Egg, eggCollection } from './Egg';
 import { LockedEgg, OpenEgg } from './Eggs';
 import { SpiderTedi } from './EggSpiders';
@@ -53,7 +53,7 @@ class EggView extends React.Component<
             <>
               <OpenEgg />
               <View style={styles.eggContents}>
-                <Text style={styles.spiderName}>Tedi</Text>
+                <SText style={styles.spiderName}>Tedi</SText>
                 <SpiderTedi />
               </View>
             </>
@@ -98,7 +98,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   spiderName: {
-    color: Colors.black,
     marginBottom: 2,
   },
 });
