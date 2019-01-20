@@ -2,19 +2,11 @@ import React from 'react';
 import Svg, { Circle, Ellipse, G, Path } from 'react-native-svg';
 import { Colors } from '../Styles';
 import { ClosedHappyEyes, ClosedHappyEyesWithLashes, OpenEyes } from './Eyes';
+import { spiderMap, SpiderProps } from './Spider';
 
-type EyeType = 'open' | 'closed-happy' | 'closed-lashes';
+export const SpiderTedi = () => <SpiderView {...spiderMap.tedi} />;
 
-export interface SpiderProps {
-  headColor: string;
-  eyes: EyeType;
-}
-
-export const SpiderTedi = () => (
-  <Spider headColor={Colors.blue} eyes="closed-happy" />
-);
-
-export class Spider extends React.Component<SpiderProps> {
+export class SpiderView extends React.Component<SpiderProps> {
   render() {
     return (
       <Svg width={59} height={64} viewBox="0 0 59 64">
@@ -85,7 +77,7 @@ export class Spider extends React.Component<SpiderProps> {
             cy="44"
             rx="2.5"
             ry="3"
-            fill="#da4d65"
+            fill={this.props.cheekColor}
             stroke={Colors.black}
             strokeWidth=".6"
           />
@@ -95,7 +87,7 @@ export class Spider extends React.Component<SpiderProps> {
             cy="44"
             rx="2.5"
             ry="3"
-            fill="#da4d65"
+            fill={this.props.cheekColor}
             stroke={Colors.black}
             strokeWidth=".6"
           />

@@ -1,4 +1,4 @@
-type Spider = 'tedi';
+import { Spider } from '../spider/Spider';
 
 export interface Egg {
   locked: boolean;

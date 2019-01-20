@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { NavigationScreenProps } from 'react-navigation';
 import { SText } from '../elements/SText';
-import { SpiderTedi } from '../spider/Spider';
+import { SpiderTedi } from '../spider/SpiderView';
 import { Egg, eggCollection } from './Egg';
 import { LockedEgg, OpenEgg } from './Eggs';
 

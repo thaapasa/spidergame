@@ -4,10 +4,12 @@ import React, { Component } from 'react';
 import IntroPage from './ui/intro/IntroPage';
 import { AppContainer } from './ui/Navigation';
 
+const autoStart = false;
+
 @observer
 export default class App extends Component<{}> {
   @observable
-  private started = false;
+  private started = autoStart;
 
   render() {
     return !this.started ? (
