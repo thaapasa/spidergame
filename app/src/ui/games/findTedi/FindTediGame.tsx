@@ -6,11 +6,8 @@ import { SText } from '../../elements/SText';
 import { spiderMap } from '../../spider/Spider';
 import { SpiderView } from '../../spider/SpiderView';
 import { Colors } from '../../Styles';
-import {
-  FindTediGameModel,
-  Size,
-  SpiderWithPosition,
-} from './FindTediGameModel';
+import { Size } from '../../util/Spatial';
+import { FindTediGameModel, SpiderWithPosition } from './FindTediGameModel';
 
 @observer
 export default class FindTediGame extends React.Component<{}> {

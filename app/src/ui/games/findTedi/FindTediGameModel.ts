@@ -1,15 +1,11 @@
 import { observable } from 'mobx';
 import { allSpiders, Spider } from '../../spider/Spider';
-
-export interface Size {
-  width: number;
-  height: number;
-}
-
-export interface Position {
-  x: number;
-  y: number;
-}
+import {
+  BoundingBox,
+  getRandomSafePosition,
+  Position,
+  Size,
+} from '../../util/Spatial';
 
 export interface SpiderWithPosition {
   spider: Spider;
@@ -17,6 +13,10 @@ export interface SpiderWithPosition {
 }
 
 const spiderSize: Size = { width: 59, height: 64 };
+const textBox = BoundingBox.forSizeAt(
+  { width: 150, height: 40 },
+  { x: 0, y: 0 }
+);
 
 const spiders: Spider[] = allSpiders.filter(
   s => s.toString().indexOf('tedi') === 0
@@ -32,17 +32,26 @@ export class FindTediGameModel {
 
   private createSpiders(size: Size): SpiderWithPosition[] {
     const sp: SpiderWithPosition[] = [];
-    spiders.forEach(s => sp.push(this.randomSpider(s, size)));
+    spiders.reduce(
+      (p, c) => {
+        const spider = this.randomSpider(c, size, p);
+        sp.push(spider);
+        p.push(BoundingBox.forSizeAt(spiderSize, spider.position));
+        return p;
+      },
+      [textBox]
+    );
     return sp;
   }
 
-  private randomSpider(spider: Spider, size: Size): SpiderWithPosition {
+  private randomSpider(
+    spider: Spider,
+    size: Size,
+    avoidObjects: BoundingBox[]
+  ): SpiderWithPosition {
     return {
       spider,
-      position: {
-        x: Math.floor(Math.random() * (size.width - spiderSize.width)),
-        y: Math.floor(Math.random() * (size.height - spiderSize.height)),
-      },
+      position: getRandomSafePosition(spiderSize, size, avoidObjects),
     };
   }
 }
