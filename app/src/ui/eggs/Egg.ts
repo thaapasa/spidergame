@@ -6,16 +6,13 @@ export interface Egg {
   routeName?: string;
 }
 
-const TediEgg: Egg = {
-  locked: false,
-  spider: 'tedi',
-  routeName: 'FindTediGame',
-};
-
-export const eggCollection: Egg[] = Array.apply(null, Array(16)).map(
-  (): Egg => ({
-    locked: true,
-    spider: 'tedi',
-  })
-);
-eggCollection[0] = TediEgg;
+export const eggCollection: Egg[] = [
+  { locked: false, spider: 'tedi', routeName: 'FindTediGame' },
+  { locked: false, spider: 'lela' },
+  ...Array.apply(null, Array(14)).map(
+    (): Egg => ({
+      locked: true,
+      spider: 'tedi',
+    })
+  ),
+];

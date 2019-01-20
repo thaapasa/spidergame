@@ -2,7 +2,8 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { NavigationScreenProps } from 'react-navigation';
 import { SText } from '../elements/SText';
-import { SpiderTedi } from '../spider/SpiderView';
+import { spiderMap } from '../spider/Spider';
+import { SpiderView } from '../spider/SpiderView';
 import { Egg, eggCollection } from './Egg';
 import { LockedEgg, OpenEgg } from './Eggs';
 
@@ -44,6 +45,7 @@ class EggView extends React.Component<
   Egg & { navigate: (routeName: string) => void }
 > {
   render() {
+    const spider = spiderMap[this.props.spider];
     return (
       <TouchableOpacity onPress={this.onClick}>
         <View style={styles.eggContainer}>
@@ -51,10 +53,10 @@ class EggView extends React.Component<
             <LockedEgg />
           ) : (
             <>
-              <OpenEgg />
+              <OpenEgg backgroundColor={spider.headColor} />
               <View style={styles.eggContents}>
-                <SText style={styles.spiderName}>Tedi</SText>
-                <SpiderTedi />
+                <SText style={styles.spiderName}>{spider.name}</SText>
+                <SpiderView {...spider} />
               </View>
             </>
           )}

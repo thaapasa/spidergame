@@ -35,14 +35,14 @@ export const LockedEgg = () => {
   );
 };
 
-export const OpenEgg = () => {
+export const OpenEgg = (props: { backgroundColor: string }) => {
   return (
     <Svg width={66} height={90} viewBox="0 0 66 90">
       <G stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <Ellipse
           stroke="#53504C"
           strokeWidth="1.6"
-          fill="#4AA9F5"
+          fill={props.backgroundColor}
           cx="33.5"
           cy="45.5"
           rx="30.5"
