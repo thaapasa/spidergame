@@ -109,7 +109,7 @@ android {
         applicationId "fi.pomeranssi.spidergame"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 8
+        versionCode 9
         versionName "0.1"
         ndk {
             abiFilters "armeabi-v7a", "x86"
