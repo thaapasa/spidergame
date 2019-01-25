@@ -1,7 +1,14 @@
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import React from 'react';
-import { LayoutChangeEvent, StyleSheet, View } from 'react-native';
+import {
+  Animated,
+  LayoutChangeEvent,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import { ResultView } from '../../elements/ResultText';
 import { SText } from '../../elements/SText';
 import { spiderMap } from '../../spider/Spider';
 import { SpiderView } from '../../spider/SpiderView';
@@ -28,6 +35,7 @@ export default class FindTediGame extends React.Component<{}> {
     (this.size = e.nativeEvent.layout);
 }
 
+@observer
 class GameArea extends React.Component<{ size: Size }> {
   @observable
   private model = new FindTediGameModel(this.props.size);
@@ -36,21 +44,43 @@ class GameArea extends React.Component<{ size: Size }> {
     return (
       <>
         <SText style={styles.titleText}>Kuka on Tedi?</SText>
+        {this.model.currentResult ? (
+          <ResultView
+            type={this.model.currentResult}
+            style={styles.resultText}
+          />
+        ) : null}
         {this.model.spiders.map((s, i) => (
-          <SpiderAt key={i} {...s} />
+          <SpiderAt key={i} {...s} model={this.model} />
         ))}
       </>
     );
   }
 }
 
-const SpiderAt = (props: SpiderWithPosition) => (
-  <View
-    style={[styles.spider, { left: props.position.x, top: props.position.y }]}
-  >
-    <SpiderView {...spiderMap[props.spider]} />
-  </View>
-);
+@observer
+class SpiderAt extends React.Component<
+  SpiderWithPosition & { model: FindTediGameModel }
+> {
+  render() {
+    return (
+      <TouchableOpacity
+        onPress={this.onClick}
+        style={[
+          styles.spider,
+          { left: this.props.position.x, top: this.props.position.y },
+        ]}
+      >
+        <Animated.View opacity={this.props.model.spiderOpacity}>
+          <SpiderView {...spiderMap[this.props.spider]} />
+        </Animated.View>
+      </TouchableOpacity>
+    );
+  }
+  onClick = () => {
+    this.props.model.trySpider(this.props.spider);
+  };
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -66,6 +96,11 @@ const styles = StyleSheet.create({
   titleText: {
     position: 'absolute',
     left: 16,
+    top: 16,
+  },
+  resultText: {
+    position: 'absolute',
+    right: 16,
     top: 16,
   },
   spider: {
