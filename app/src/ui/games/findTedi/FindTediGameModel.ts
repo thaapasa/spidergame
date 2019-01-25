@@ -1,5 +1,5 @@
 import { observable } from 'mobx';
-import { Animated } from 'react-native';
+import { Animated, Vibration } from 'react-native';
 import { Result } from '../../elements/ResultText';
 import { allSpiders, Spider } from '../../spider/Spider';
 import {
@@ -49,6 +49,7 @@ export class FindTediGameModel {
       this.stopGame();
     } else {
       this.showResult('failure');
+      Vibration.vibrate(400, false);
     }
   }
 
