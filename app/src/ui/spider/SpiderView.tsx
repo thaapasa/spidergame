@@ -1,13 +1,22 @@
 import React from 'react';
 import Svg, { Circle, Ellipse, G, Path } from 'react-native-svg';
 import { Colors } from '../Styles';
+import { Size } from '../util/Spatial';
 import { ClosedHappyEyes, ClosedHappyEyesWithLashes, OpenEyes } from './Eyes';
 import { SpiderProps } from './Spider';
 
-export class SpiderView extends React.Component<SpiderProps> {
+export function calcSpiderSize(scale: number): Size {
+  return { width: 59 * scale, height: 64 * scale };
+}
+
+export class SpiderView extends React.Component<SpiderProps & Partial<Size>> {
   render() {
     return (
-      <Svg width={59} height={64} viewBox="0 0 59 64">
+      <Svg
+        width={this.props.width || 59}
+        height={this.props.height || 64}
+        viewBox="0 0 59 64"
+      >
         <G transform="translate(4 6)" fillRule="evenodd" clipRule="evenodd">
           {this.renderFeet()}
           <Path

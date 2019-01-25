@@ -14,7 +14,11 @@ import { spiderMap } from '../../spider/Spider';
 import { SpiderView } from '../../spider/SpiderView';
 import { Colors } from '../../Styles';
 import { Size } from '../../util/Spatial';
-import { FindTediGameModel, SpiderWithPosition } from './FindTediGameModel';
+import {
+  FindTediGameModel,
+  spiderSize,
+  SpiderWithPosition,
+} from './FindTediGameModel';
 
 @observer
 export default class FindTediGame extends React.Component<{}> {
@@ -72,7 +76,7 @@ class SpiderAt extends React.Component<
         ]}
       >
         <Animated.View opacity={this.props.model.spiderOpacity}>
-          <SpiderView {...spiderMap[this.props.spider]} />
+          <SpiderView {...spiderSize} {...spiderMap[this.props.spider]} />
         </Animated.View>
       </TouchableOpacity>
     );

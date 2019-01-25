@@ -2,6 +2,7 @@ import { observable } from 'mobx';
 import { Animated, Vibration } from 'react-native';
 import { Result } from '../../elements/ResultText';
 import { allSpiders, Spider } from '../../spider/Spider';
+import { calcSpiderSize } from '../../spider/SpiderView';
 import {
   BoundingBox,
   getRandomSafePosition,
@@ -15,7 +16,8 @@ export interface SpiderWithPosition {
   position: Position;
 }
 
-const spiderSize: Size = { width: 59, height: 64 };
+const spiderScale = 1.5;
+export const spiderSize: Size = calcSpiderSize(spiderScale);
 const titlePos = BoundingBox.forSizeAt(
   { width: 50, height: 50 },
   { x: 0, y: 0 }
