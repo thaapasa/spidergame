@@ -1,9 +1,9 @@
 import React from 'react';
 import Svg, { Circle, Ellipse, G, Path } from 'react-native-svg';
-import { Colors } from '../Styles';
-import { Size } from '../util/Spatial';
+import { SpiderProps } from '../../game/Spider';
+import { Colors } from '../../style/Colors';
+import { Size } from '../../util/Spatial';
 import { ClosedHappyEyes, ClosedHappyEyesWithLashes, OpenEyes } from './Eyes';
-import { SpiderProps } from './Spider';
 
 export function calcSpiderSize(scale: number): Size {
   return { width: 59 * scale, height: 64 * scale };

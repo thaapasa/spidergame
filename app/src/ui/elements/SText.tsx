@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TextProperties } from 'react-native';
-import { Colors } from '../Styles';
+import { Colors } from '../../style/Colors';
 
 export const SText = (props: TextProperties & { children: any }) => (
   <Text {...props} style={[styles.text, props.style]}>

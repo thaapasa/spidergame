@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react';
 import { StyleSheet } from 'react-native';
 import { createAppContainer, createStackNavigator } from 'react-navigation';
 import EggPage from './eggs/EggPage';
@@ -25,4 +26,4 @@ export const AppNavigator = createStackNavigator(
   }
 );
 
-export const AppContainer = createAppContainer(AppNavigator);
+export const AppContainer = observer(createAppContainer(AppNavigator));

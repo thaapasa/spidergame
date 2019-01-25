@@ -1,6 +1,8 @@
-import { Colors } from '../Styles';
+import { Colors } from '../style/Colors';
+import { Omit } from '../util/Utils';
 
 export type Spider =
+  | 'unknown'
   | 'tedi'
   | 'tediAlt1'
   | 'tediAlt2'
@@ -30,18 +32,30 @@ export interface SpiderProps {
   feet: FeetType;
 }
 
-const tedi: SpiderProps = {
+const baseSpider: Omit<SpiderProps, 'name'> = {
   headColor: Colors.blue,
   bodyColor: Colors.purple,
   antennas: 'left-right',
   cheeks: 'red',
   eyes: 'closed-happy',
   mouth: 'open-happy',
-  name: 'Tedi',
   feet: 'normal',
 };
 
+const tedi: SpiderProps = {
+  ...baseSpider,
+  name: 'Tedi',
+};
+
 export const spiderMap: Record<Spider, SpiderProps> = {
+  unknown: {
+    ...baseSpider,
+    name: 'Cthulhu',
+    cheeks: 'none',
+    headColor: Colors.purple,
+    bodyColor: Colors.black,
+    mouth: 'open-sad',
+  },
   tedi,
   tediAlt1: { ...tedi, headColor: Colors.yellow },
   tediAlt2: { ...tedi, cheeks: 'black' },

@@ -1,8 +1,10 @@
+import { observer } from 'mobx-react';
 import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import Video from 'react-native-video';
 import Button from '../elements/Button';
 
+@observer
 export default class IntroPage extends React.Component<{
   onStart: () => void;
 }> {

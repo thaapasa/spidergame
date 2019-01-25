@@ -1,15 +1,17 @@
 import { observable } from 'mobx';
 import { Animated, Vibration } from 'react-native';
-import { Result } from '../../elements/ResultText';
-import { allSpiders, Spider } from '../../spider/Spider';
-import { calcSpiderSize } from '../../spider/SpiderView';
+import { NavigationRoute, NavigationScreenProp } from 'react-navigation';
+import { appModel } from '../../../game/AppViewModel';
+import { allSpiders, Spider } from '../../../game/Spider';
 import {
   BoundingBox,
   getRandomSafePosition,
   Position,
   Size,
-} from '../../util/Spatial';
-import { timeout } from '../../util/Utils';
+} from '../../../util/Spatial';
+import { timeout } from '../../../util/Utils';
+import { Result } from '../../elements/ResultText';
+import { calcSpiderSize } from '../../spider/SpiderView';
 
 export interface SpiderWithPosition {
   spider: Spider;
@@ -38,14 +40,16 @@ export class FindTediGameModel {
   @observable
   spiderOpacity: Animated.Value = new Animated.Value(1);
 
+  private navigation: NavigationScreenProp<NavigationRoute>;
   private resultSemaphore: number = 0;
   private correctFound = false;
 
-  constructor(size: Size) {
+  constructor(size: Size, navigation: NavigationScreenProp<NavigationRoute>) {
+    this.navigation = navigation;
     this.spiders = this.createSpiders(size);
   }
 
-  trySpider(spider: Spider) {
+  trySpider = (spider: Spider) => {
     if (spider === 'tedi') {
       this.showResult('success');
       this.stopGame();
@@ -53,7 +57,7 @@ export class FindTediGameModel {
       this.showResult('failure');
       Vibration.vibrate(400, false);
     }
-  }
+  };
 
   showResult = async (result: Result) => {
     if (this.correctFound) {
@@ -68,9 +72,12 @@ export class FindTediGameModel {
     }
   };
 
-  stopGame = () => {
+  stopGame = async () => {
     this.correctFound = true;
+    appModel.unlockSpider('lela');
     Animated.timing(this.spiderOpacity, { toValue: 0 }).start();
+    await timeout(2000);
+    this.navigation.navigate('EggCollection');
   };
 
   private createSpiders(size: Size): SpiderWithPosition[] {

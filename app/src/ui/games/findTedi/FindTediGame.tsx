@@ -8,12 +8,17 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {
+  NavigationRoute,
+  NavigationScreenProp,
+  NavigationScreenProps,
+} from 'react-navigation';
+import { spiderMap } from '../../../game/Spider';
+import { Colors } from '../../../style/Colors';
+import { Size } from '../../../util/Spatial';
 import { ResultView } from '../../elements/ResultText';
 import { SText } from '../../elements/SText';
-import { spiderMap } from '../../spider/Spider';
 import { SpiderView } from '../../spider/SpiderView';
-import { Colors } from '../../Styles';
-import { Size } from '../../util/Spatial';
 import {
   FindTediGameModel,
   spiderSize,
@@ -21,7 +26,9 @@ import {
 } from './FindTediGameModel';
 
 @observer
-export default class FindTediGame extends React.Component<{}> {
+export default class FindTediGame extends React.Component<
+  NavigationScreenProps<{}>
+> {
   @observable
   private size: Size | null = null;
 
@@ -29,7 +36,7 @@ export default class FindTediGame extends React.Component<{}> {
     return (
       <View style={styles.container} onLayout={this.onLayout}>
         {this.size && this.size.width > 0 && this.size.height > 0 ? (
-          <GameArea size={this.size} />
+          <GameArea size={this.size} navigation={this.props.navigation} />
         ) : null}
       </View>
     );
@@ -40,9 +47,12 @@ export default class FindTediGame extends React.Component<{}> {
 }
 
 @observer
-class GameArea extends React.Component<{ size: Size }> {
+class GameArea extends React.Component<{
+  size: Size;
+  navigation: NavigationScreenProp<NavigationRoute>;
+}> {
   @observable
-  private model = new FindTediGameModel(this.props.size);
+  private model = new FindTediGameModel(this.props.size, this.props.navigation);
 
   render() {
     return (

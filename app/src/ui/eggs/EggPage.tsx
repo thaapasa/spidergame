@@ -1,16 +1,23 @@
+import { computed } from 'mobx';
+import { observer } from 'mobx-react';
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { NavigationScreenProps } from 'react-navigation';
+import { appModel } from '../../game/AppViewModel';
+import { Egg } from '../../game/Egg';
+import { spiderMap } from '../../game/Spider';
 import { SText } from '../elements/SText';
-import { spiderMap } from '../spider/Spider';
 import { SpiderView } from '../spider/SpiderView';
-import { Egg, eggCollection } from './Egg';
 import { LockedEgg, OpenEgg } from './Eggs';
 
+@observer
 export default class EggPage extends React.Component<
   NavigationScreenProps<any>
 > {
-  eggs: Egg[] = eggCollection;
+  @computed
+  get eggs(): Egg[] {
+    return appModel.eggs;
+  }
   render() {
     return <View style={styles.container}>{this.renderEggs()}</View>;
   }
@@ -27,20 +34,23 @@ export default class EggPage extends React.Component<
   }
 }
 
-const EggRow = ({
-  eggs,
-  navigate,
-}: {
-  eggs: Egg[];
-  navigate: (routeName: string) => void;
-}) => (
-  <View style={styles.eggRow}>
-    {eggs.map((egg, i) => (
-      <EggView {...egg} key={i} navigate={navigate} />
-    ))}
-  </View>
+const EggRow = observer(
+  ({
+    eggs,
+    navigate,
+  }: {
+    eggs: Egg[];
+    navigate: (routeName: string) => void;
+  }) => (
+    <View style={styles.eggRow}>
+      {eggs.map((egg, i) => (
+        <EggView {...egg} key={i} navigate={navigate} />
+      ))}
+    </View>
+  )
 );
 
+@observer
 class EggView extends React.Component<
   Egg & { navigate: (routeName: string) => void }
 > {
@@ -65,7 +75,7 @@ class EggView extends React.Component<
     );
   }
   onClick = () => {
-    if (this.props.routeName) {
+    if (this.props.routeName && !this.props.locked) {
       this.props.navigate(this.props.routeName);
     }
   };

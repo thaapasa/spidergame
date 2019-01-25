@@ -1,6 +1,6 @@
 import React from 'react';
 import { Ellipse, G, Path } from 'react-native-svg';
-import { Colors } from '../Styles';
+import { Colors } from '../../style/Colors';
 
 export const OpenEyes = () => (
   <>
