@@ -3,6 +3,7 @@ import { observer } from 'mobx-react';
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { NavigationScreenProps } from 'react-navigation';
+import { autoStart } from '../../Debug';
 import { appModel } from '../../game/AppViewModel';
 import { Egg } from '../../game/Egg';
 import { spiderMap } from '../../game/Spider';
@@ -17,6 +18,11 @@ export default class EggPage extends React.Component<
   @computed
   get eggs(): Egg[] {
     return appModel.eggs;
+  }
+  componentDidMount() {
+    if (autoStart) {
+      this.props.navigation.navigate(autoStart);
+    }
   }
   render() {
     return <View style={styles.container}>{this.renderEggs()}</View>;

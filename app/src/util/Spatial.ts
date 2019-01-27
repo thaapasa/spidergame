@@ -62,3 +62,23 @@ export function getRandomPosition(forSize: Size, areaBounds: Size): Position {
     y: Math.floor(Math.random() * (areaBounds.height - forSize.height)),
   };
 }
+
+export function calculateScaledSize(
+  originalSize: Size,
+  scale?: number,
+  width?: number
+): Size {
+  if (scale !== undefined) {
+    return {
+      width: originalSize.width * scale,
+      height: originalSize.height * scale,
+    };
+  }
+  if (width !== undefined) {
+    return {
+      width,
+      height: (originalSize.height * width) / originalSize.width,
+    };
+  }
+  return originalSize;
+}

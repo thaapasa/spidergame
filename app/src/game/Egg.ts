@@ -11,7 +11,7 @@ export interface Egg {
 
 export const defaultEggCollection: Egg[] = [
   { locked: false, spider: 'tedi', routeName: 'FindTediGame' },
-  { locked: true, spider: 'lela' },
+  { locked: true, spider: 'lela', routeName: 'FeedLelaGame' },
   ...Array.apply(null, Array(14)).map(
     (): Egg => ({
       locked: true,

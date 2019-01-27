@@ -2,7 +2,8 @@ import { observer } from 'mobx-react';
 import { StyleSheet } from 'react-native';
 import { createAppContainer, createStackNavigator } from 'react-navigation';
 import EggPage from './eggs/EggPage';
-import FindTediGame from './games/findTedi/FindTediGame';
+import FeedLelaGame from './games/lela/FeedLelaGame';
+import FindTediGame from './games/tedi/FindTediGame';
 
 const styles = StyleSheet.create({
   cardStyle: {
@@ -12,12 +13,9 @@ const styles = StyleSheet.create({
 
 export const AppNavigator = createStackNavigator(
   {
-    EggCollection: {
-      screen: EggPage,
-    },
-    FindTediGame: {
-      screen: FindTediGame,
-    },
+    EggCollection: { screen: EggPage },
+    FindTediGame: { screen: FindTediGame },
+    FeedLelaGame: { screen: FeedLelaGame },
   },
   {
     initialRouteName: 'EggCollection',
