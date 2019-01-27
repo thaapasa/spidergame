@@ -2,7 +2,7 @@ import React from 'react';
 import { Ellipse, G, Path } from 'react-native-svg';
 import { Colors } from '../../style/Colors';
 
-export const OpenEyes = () => (
+export const OpenEyesRight = () => (
   <>
     <G transform="translate(27 31)">
       <Ellipse
@@ -45,6 +45,41 @@ export const OpenEyes = () => (
         id="Oval"
         transform="translate(-.056 -.444)"
       />
+    </G>
+  </>
+);
+
+export const OpenEyesLeft = () => (
+  <>
+    <G transform="matrix(1,0,0,1,27,31)">
+      <Ellipse
+        id="Oval2"
+        cx="3"
+        cy="3.5"
+        rx="3"
+        ry="3.5"
+        fill="rgb(252,254,255)"
+        stroke="rgb(48,48,48)"
+        strokeWidth="0.8px"
+      />
+      <G transform="matrix(1,0,0,1,-1.87724,0.225697)">
+        <Ellipse cx="4" cy="3.5" rx="2" ry="2.5" fill="rgb(48,48,48)" />
+      </G>
+    </G>
+    <G transform="matrix(1,0,0,1,18,31)">
+      <Ellipse
+        id="Oval4"
+        cx="3"
+        cy="3.5"
+        rx="3"
+        ry="3.5"
+        fill="rgb(252,254,255)"
+        stroke="rgb(48,48,48)"
+        strokeWidth="0.8px"
+      />
+      <G transform="matrix(1,0,0,1,-1.73926,0.219824)">
+        <Ellipse cx="4" cy="3.5" rx="2" ry="2.5" fill="rgb(48,48,48)" />
+      </G>
     </G>
   </>
 );

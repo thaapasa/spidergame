@@ -1,9 +1,22 @@
 import React from 'react';
-import Svg, { Circle, Ellipse, G, Path } from 'react-native-svg';
+import Svg, { Ellipse, G, Path } from 'react-native-svg';
 import { SpiderProps } from '../../game/Spider';
 import { Colors } from '../../style/Colors';
 import { Size } from '../../util/Spatial';
-import { ClosedHappyEyes, ClosedHappyEyesWithLashes, OpenEyes } from './Eyes';
+import {
+  AntennaLeftLeft,
+  AntennaLeftRight,
+  AntennaLeftUp,
+  AntennaRightLeft,
+  AntennaRightRight,
+  AntennaRightUp,
+} from './Antennas';
+import {
+  ClosedHappyEyes,
+  ClosedHappyEyesWithLashes,
+  OpenEyesLeft,
+  OpenEyesRight,
+} from './Eyes';
 
 export function calcSpiderSize(scale: number): Size {
   return { width: 59 * scale, height: 64 * scale };
@@ -100,14 +113,44 @@ export class SpiderView extends React.Component<SpiderProps & Partial<Size>> {
             <AntennaRightRight />
           </>
         );
+      case 'left':
+        return (
+          <>
+            <AntennaLeftLeft />
+            <AntennaRightLeft />
+          </>
+        );
+      case 'right':
+        return (
+          <>
+            <AntennaLeftRight />
+            <AntennaRightRight />
+          </>
+        );
+      case 'crossed':
+        return (
+          <>
+            <AntennaLeftRight />
+            <AntennaRightLeft />
+          </>
+        );
+      case 'up':
+        return (
+          <>
+            <AntennaLeftUp />
+            <AntennaRightUp />
+          </>
+        );
     }
     return null;
   }
 
   renderEyes() {
     switch (this.props.eyes) {
-      case 'open':
-        return <OpenEyes />;
+      case 'open-right':
+        return <OpenEyesRight />;
+      case 'open-left':
+        return <OpenEyesLeft />;
       case 'closed-happy':
         return <ClosedHappyEyes />;
       case 'closed-lashes':
@@ -160,43 +203,5 @@ const ClosedHappyMouth = () => (
         strokeLinecap="round"
       />
     </G>
-  </>
-);
-
-const AntennaLeftLeft = () => (
-  <>
-    <Path
-      d="M17.804 28.904c0-12.243-11.526-16.469-13.97-18.27"
-      fill="none"
-      stroke={Colors.black}
-      strokeLinecap="square"
-    />
-    <Circle
-      cx="3.5"
-      cy="3.5"
-      r="3.5"
-      fill={Colors.black}
-      transform="translate(-.167 7.222)"
-    />
-  </>
-);
-
-const AntennaRightRight = () => (
-  <>
-    <Path
-      id="Line"
-      d="M32.196 28.904c0-12.243 11.637-15.637 14.081-17.437"
-      fill="none"
-      stroke={Colors.black}
-      strokeLinecap="square"
-    />
-    <Circle
-      cx="3.5"
-      cy="3.5"
-      r="3.5"
-      fill={Colors.black}
-      id="Oval"
-      transform="matrix(-1 0 0 1 50.056 7.278)"
-    />
   </>
 );

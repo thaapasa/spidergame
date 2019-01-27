@@ -16,9 +16,19 @@ export type Spider =
   | 'lela';
 
 export type CheekType = 'red' | 'black' | 'none';
-export type EyeType = 'open' | 'closed-happy' | 'closed-lashes';
+export type EyeType =
+  | 'open-left'
+  | 'open-right'
+  | 'closed-happy'
+  | 'closed-lashes';
 export type MouthType = 'open-happy' | 'closed-happy' | 'open-sad';
-export type AntennaType = 'left-right' | 'left' | 'right' | 'up' | 'none';
+export type AntennaType =
+  | 'left-right'
+  | 'left'
+  | 'right'
+  | 'up'
+  | 'crossed'
+  | 'none';
 export type FeetType = 'normal' | 'one-missing';
 
 export interface SpiderProps {
@@ -59,7 +69,7 @@ export const spiderMap: Record<Spider, SpiderProps> = {
   tedi,
   tediAlt1: { ...tedi, headColor: Colors.yellow },
   tediAlt2: { ...tedi, cheeks: 'black' },
-  tediAlt3: { ...tedi, eyes: 'open' },
+  tediAlt3: { ...tedi, eyes: 'open-right' },
   tediAlt4: { ...tedi, eyes: 'closed-lashes' },
   tediAlt5: { ...tedi, mouth: 'open-sad' },
   tediAlt6: { ...tedi, cheeks: 'none' },
@@ -71,7 +81,7 @@ export const spiderMap: Record<Spider, SpiderProps> = {
     bodyColor: Colors.purple,
     antennas: 'left-right',
     cheeks: 'red',
-    eyes: 'open',
+    eyes: 'open-left',
     mouth: 'closed-happy',
     name: 'Lela',
     feet: 'normal',
