@@ -1,27 +1,65 @@
 import { observer } from 'mobx-react';
 import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { Animated, Image, StyleSheet } from 'react-native';
 import { Size } from '../../util/Spatial';
 import { Grass } from './Grass';
+import { SceneryModel } from './SceneryModel';
 
 // tslint:disable-next-line no-var-requires
 const treeSrc = require('../../../assets/img/tree.png');
 // tslint:disable-next-line no-var-requires
 const logoSrc = require('../../../assets/img/intro-logo.png');
 
+const AGrass = Animated.createAnimatedComponent(Grass);
+
 @observer
 export default class Scenery extends React.Component<{
+  animationDuration: number;
   size: Size;
 }> {
+  model = new SceneryModel();
+
+  componentDidMount() {
+    this.model.animate(this.props.animationDuration);
+  }
+
   render() {
     return (
       <>
-        <Grass width={this.props.size.width} style={styles.grass} />
-        <Image source={treeSrc} style={styles.tree1} />
-        <Image source={treeSrc} style={styles.tree2} />
-        <View style={styles.center}>
+        <AGrass
+          width={this.props.size.width}
+          style={{
+            ...styles.grass,
+            bottom: this.model.ground.y,
+          }}
+        />
+        <Animated.Image
+          source={treeSrc}
+          style={{
+            ...styles.image,
+            left: this.model.tree1.x,
+            bottom: this.model.tree1.y,
+            transform: [{ scale: this.model.tree1.scale }],
+          }}
+        />
+        <Animated.Image
+          source={treeSrc}
+          style={{
+            ...styles.image,
+            right: this.model.tree2.x,
+            bottom: this.model.tree2.y,
+            transform: [{ scale: this.model.tree2.scale }],
+          }}
+        />
+        <Animated.View
+          style={{
+            ...styles.center,
+            opacity: this.model.logoOpacity,
+            transform: [{ scale: this.model.logoScale }],
+          }}
+        >
           <Image source={logoSrc} />
-        </View>
+        </Animated.View>
       </>
     );
   }
@@ -30,19 +68,11 @@ export default class Scenery extends React.Component<{
 const styles = StyleSheet.create({
   grass: {
     position: 'absolute',
-    bottom: 0,
     left: 0,
     right: 0,
   },
-  tree1: {
+  image: {
     position: 'absolute',
-    left: -48,
-    bottom: 8,
-  },
-  tree2: {
-    position: 'absolute',
-    right: -48,
-    bottom: 8,
   },
   center: {
     position: 'absolute',
