@@ -39,7 +39,7 @@ export default class Scenery extends React.Component<{
             ...styles.image,
             left: this.model.tree1.x,
             bottom: this.model.tree1.y,
-            transform: [{ scale: this.model.tree1.scale }],
+            transform: [{ scale: this.model.tree1.scale }, { scaleX: -1 }],
           }}
         />
         <Animated.Image
