@@ -5,8 +5,13 @@ const sceneryEndPoint = 0.7;
 const logoStartPoint = 0.4;
 
 export class SceneryModel {
-  tree1 = new PositionAndScale(-400, -20, 1.5);
-  tree2 = new PositionAndScale(-400, -20, 1.5);
+  treeLeft = new PositionAndScale(-400, -20, 1.5);
+  treeRight = new PositionAndScale(-400, -20, 1.5);
+  treeLeftSmall = new PositionAndScale(-400, 0, 1);
+  treeRightSmall = new PositionAndScale(-400, 0, 1);
+  treeRightTiny = new PositionAndScale(-450, -10, 0.8);
+  treeLeftTiny = new PositionAndScale(-450, -10, 0.8);
+  treeCenter = new PositionAndScale(-450, -10, 0.8);
   ground = new PositionAndScale(0, -250, 1);
   logoOpacity = new Animated.Value(0);
   logoScale = new Animated.Value(0);
@@ -16,8 +21,13 @@ export class SceneryModel {
     const logoStartTime = logoStartPoint * duration;
     const logoDuration = duration - logoStartTime;
     Animated.parallel([
-      this.tree1.animate(sceneryEndTime, -38, 8, 1),
-      this.tree2.animate(sceneryEndTime, -38, 8, 1),
+      this.treeLeft.animate(sceneryEndTime, -38, 8, 1),
+      this.treeRight.animate(sceneryEndTime, -38, 8, 1),
+      this.treeLeftSmall.animate(sceneryEndTime, 70, 40, 0.65),
+      this.treeRightSmall.animate(sceneryEndTime, 90, 40, 0.65),
+      this.treeRightTiny.animate(sceneryEndTime, 10, 20, 0.45),
+      this.treeLeftTiny.animate(sceneryEndTime, 10, 20, 0.45),
+      this.treeCenter.animate(sceneryEndTime, 200, 40, 0.45),
       this.ground.animate(sceneryEndTime, undefined, 0),
       Animated.sequence([
         Animated.delay(logoStartTime),
@@ -38,7 +48,7 @@ export class SceneryModel {
   }
 }
 
-class PositionAndScale {
+export class PositionAndScale {
   @observable
   x: Animated.Value;
   y: Animated.Value;

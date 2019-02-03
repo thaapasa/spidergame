@@ -3,7 +3,7 @@ import React from 'react';
 import { Animated, Image, StyleSheet } from 'react-native';
 import { Size } from '../../util/Spatial';
 import { Grass } from './Grass';
-import { SceneryModel } from './SceneryModel';
+import { PositionAndScale, SceneryModel } from './SceneryModel';
 
 // tslint:disable-next-line no-var-requires
 const treeSrc = require('../../../assets/img/tree.png');
@@ -33,24 +33,13 @@ export default class Scenery extends React.Component<{
             bottom: this.model.ground.y,
           }}
         />
-        <Animated.Image
-          source={treeSrc}
-          style={{
-            ...styles.image,
-            left: this.model.tree1.x,
-            bottom: this.model.tree1.y,
-            transform: [{ scale: this.model.tree1.scale }, { scaleX: -1 }],
-          }}
-        />
-        <Animated.Image
-          source={treeSrc}
-          style={{
-            ...styles.image,
-            right: this.model.tree2.x,
-            bottom: this.model.tree2.y,
-            transform: [{ scale: this.model.tree2.scale }],
-          }}
-        />
+        <Tree model={this.model.treeCenter} anchor="right" />
+        <Tree model={this.model.treeLeftTiny} anchor="left" flip={true} />
+        <Tree model={this.model.treeRightTiny} anchor="right" />
+        <Tree model={this.model.treeLeftSmall} anchor="left" flip={true} />
+        <Tree model={this.model.treeRightSmall} anchor="right" />
+        <Tree model={this.model.treeLeft} anchor="left" flip={true} />
+        <Tree model={this.model.treeRight} anchor="right" />
         <Animated.View
           style={{
             ...styles.center,
@@ -64,6 +53,25 @@ export default class Scenery extends React.Component<{
     );
   }
 }
+
+const Tree = (props: {
+  model: PositionAndScale;
+  anchor: 'left' | 'right';
+  flip?: boolean;
+}) => (
+  <Animated.Image
+    source={treeSrc}
+    style={{
+      ...styles.image,
+      [props.anchor]: props.model.x,
+      bottom: props.model.y,
+      transform: [
+        { scale: props.model.scale },
+        ...(props.flip ? [{ scaleX: -1 }] : []),
+      ],
+    }}
+  />
+);
 
 const styles = StyleSheet.create({
   grass: {
