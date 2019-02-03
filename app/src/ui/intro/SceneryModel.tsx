@@ -1,6 +1,9 @@
 import { observable } from 'mobx';
 import { Animated, Easing } from 'react-native';
 
+const sceneryEndPoint = 0.7;
+const logoStartPoint = 0.4;
+
 export class SceneryModel {
   tree1 = new PositionAndScale(-400, -20, 1.5);
   tree2 = new PositionAndScale(-400, -20, 1.5);
@@ -9,20 +12,28 @@ export class SceneryModel {
   logoScale = new Animated.Value(0);
 
   animate(duration: number) {
+    const sceneryEndTime = sceneryEndPoint * duration;
+    const logoStartTime = logoStartPoint * duration;
+    const logoDuration = duration - logoStartTime;
     Animated.parallel([
-      this.tree1.animate(duration, -38, 8, 1),
-      this.tree2.animate(duration, -38, 8, 1),
-      this.ground.animate(duration, undefined, 0),
-      Animated.timing(this.logoOpacity, {
-        toValue: 1,
-        duration,
-        easing: Easing.out(Easing.ease),
-      }),
-      Animated.timing(this.logoScale, {
-        toValue: 1,
-        duration,
-        easing: Easing.out(Easing.ease),
-      }),
+      this.tree1.animate(sceneryEndTime, -38, 8, 1),
+      this.tree2.animate(sceneryEndTime, -38, 8, 1),
+      this.ground.animate(sceneryEndTime, undefined, 0),
+      Animated.sequence([
+        Animated.delay(logoStartTime),
+        Animated.parallel([
+          Animated.timing(this.logoOpacity, {
+            toValue: 1,
+            duration: logoDuration,
+            easing: Easing.out(Easing.ease),
+          }),
+          Animated.timing(this.logoScale, {
+            toValue: 1,
+            duration: logoDuration,
+            easing: Easing.out(Easing.ease),
+          }),
+        ]),
+      ]),
     ]).start();
   }
 }
